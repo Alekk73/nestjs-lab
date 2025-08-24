@@ -1,98 +1,88 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+## 🟢 Etapa 1: Base de Nest y Controllers
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+1. Hola Mundo con módulos y controllers
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- Crear un proyecto Nest (nest new).
+- Armar un AppController con rutas:
+  - GET /hello → devuelve "Hola Nest".
+  - GET /ping → devuelve { msg: "pong" }.
 
-## Description
+2. Routing con parámetros
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- GET /users/:id → devuelve "User con id: X".
+- GET /search?term=abc → devuelve "Buscando: abc".
 
-## Project setup
+👉 Objetivo: entender controllers, routes, params y query params.
 
-```bash
-$ npm install
-```
+## 🟡 Etapa 2: Providers y Services
 
-## Compile and run the project
+3. Service básico
 
-```bash
-# development
-$ npm run start
+- Crear un UsersService que tenga un array local [{ id: 1, name: 'Juan' }].
+- GET /users → devuelve todos.
+- GET /users/:id → busca uno.
 
-# watch mode
-$ npm run start:dev
+👉 Objetivo: separar lógica de datos en servicios.
 
-# production mode
-$ npm run start:prod
-```
+4. POST con DTO
 
-## Run tests
+- POST /users con body { name: "Ana" } → agrega al array.
+- Usar un DTO y un Pipe de validación (class-validator).
 
-```bash
-# unit tests
-$ npm run test
+👉 Objetivo: practicar DTOs + Pipes.
 
-# e2e tests
-$ npm run test:e2e
+## 🟠 Etapa 3: Middleware, Guards, Interceptors
 
-# test coverage
-$ npm run test:cov
-```
+5. Middleware
 
-## Deployment
+- Middleware que loguee cada request con método y URL.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+6. Guard básico
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+- Guard que solo deja pasar si el header x-auth existe.
+- Si no existe → 403.
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+7. Interceptor
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+- Interceptor que mida cuánto tarda cada request y lo muestre por consola.
 
-## Resources
+👉 Objetivo: practicar el ciclo de ejecución (middleware → guard → interceptor → controller).
 
-Check out a few resources that may come in handy when working with NestJS:
+## 🔵 Etapa 4: Decoradores + Reflector
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+8. Roles
 
-## Support
+- Crear decorador @Roles('admin').
+- Crear RolesGuard con Reflector que lea la metadata.
+- Aplicarlo a un endpoint de UsersController.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+👉 Objetivo: entender bien decoradores + reflector.
 
-## Stay in touch
+## 🟣 Etapa 5: Excepciones y Filters
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+9. Filter de Excepciones
 
-## License
+- Crear un filter que atrape errores y siempre devuelva JSON con { error: mensaje }.
+- Forzar un error en algún endpoint para probar.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 🔴 Etapa 6: Mini Proyecto Integrado
+
+10. API de Tareas (Todo App)
+
+- CRUD de tareas (id, title, done).
+- Validar inputs con DTOs.
+- Guard simple para “loguear” con header x-auth.
+- Roles: solo admin puede borrar tareas.
+- Interceptor que loguee tiempo de cada request.
+- Exception filter custom.
+
+👉 Con este cierras un mini proyecto completo que toca todas las capas importantes de Nest.
+
+### 🧑‍💻 Organización en tu Git
+
+- Carpeta 01-controllers-basic/
+- Carpeta 02-services-dtos/
+- Carpeta 03-guards-interceptors/
+- Carpeta 04-decorators-reflector/
+- Carpeta 05-filters/
+- Carpeta 06-mini-todo/
