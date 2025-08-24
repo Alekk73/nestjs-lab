@@ -1,4 +1,4 @@
-## 🟢 Etapa 1: Base de Nest y Controllers
+## 🟢 Etapa 1: Base de Nest y Controllers ✅
 
 1. Hola Mundo con módulos y controllers
 
@@ -14,7 +14,7 @@
 
 👉 Objetivo: entender controllers, routes, params y query params.
 
-## 🟡 Etapa 2: Providers y Services
+## 🟡 Etapa 2: Providers y Services ✅
 
 3. Service básico
 
@@ -86,3 +86,4 @@
 - Carpeta 04-decorators-reflector/
 - Carpeta 05-filters/
 - Carpeta 06-mini-todo/
+
